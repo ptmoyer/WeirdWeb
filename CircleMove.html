@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Circle Movement</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        canvas {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const circle = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 30,
+            vx: 0,
+            vy: 0,
+            acceleration: 0.5,
+            maxSpeed: 5,
+            friction: 0.98
+        };
+
+        const keys = {};
+
+        window.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        function update() {
+            if (keys['ArrowUp']) circle.vy -= circle.acceleration;
+            if (keys['ArrowDown']) circle.vy += circle.acceleration;
+            if (keys['ArrowLeft']) circle.vx -= circle.acceleration;
+            if (keys['ArrowRight']) circle.vx += circle.acceleration;
+
+            // Apply speed limit
+            circle.vx = Math.max(-circle.maxSpeed, Math.min(circle.maxSpeed, circle.vx));
+            circle.vy = Math.max(-circle.maxSpeed, Math.min(circle.maxSpeed, circle.vy));
+
+            // Apply friction
+            circle.vx *= circle.friction;
+            circle.vy *= circle.friction;
+
+            // Update position
+            circle.x += circle.vx;
+            circle.y += circle.vy;
+
+            // Keep the circle within the canvas bounds
+            circle.x = Math.max(circle.radius, Math.min(canvas.width - circle.radius, circle.x));
+            circle.y = Math.max(circle.radius, Math.min(canvas.height - circle.radius, circle.y));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function animate() {
+            update();
+            draw();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
