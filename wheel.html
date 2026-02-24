@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        @keyframes spinWheel{
+            from{transform:rotate(0deg);}
+            to{transform:rotate(760deg);}
+        }
+        .wheelContainer{
+            width:400px;
+            height:400px;
+            display: block;
+            margin: 0 auto;
+            overflow:hidden;
+            border-radius:100%;
+            position:relative;
+
+            border: 5px solid black;
+        }
+        
+        
+        .eighth{
+            height:50%;
+            width:43%;
+            clip-path:polygon(0% 0%, 100% 0%, 50% 100%);
+            position:absolute;
+            left:50%;
+        }
+        
+        .redSegment{
+            background-color:red;
+            transform: translate(-50%) rotate(0deg);
+            transform-origin: bottom;
+        }
+            .whiteSegment{
+            background-color:white;
+            transform: translate(-50%) rotate(45deg);
+            transform-origin: bottom;
+        }
+                .greenSegment{
+            background-color:green;
+            transform: translate(-50%) rotate(90deg);
+            transform-origin: bottom;
+        }
+                .blueSegment{
+            background-color:blue;
+            transform: translate(-50%) rotate(135deg);
+            transform-origin: bottom;
+        }
+                .orangeSegment{
+            background-color:orange;
+            transform: translate(-50%) rotate(180deg);
+            transform-origin: bottom;
+        }
+                .blackSegment{
+            background-color:black;
+            transform: translate(-50%) rotate(225deg);
+            transform-origin: bottom;
+        }
+                .yellowSegment{
+            background-color:yellow;
+            transform: translate(-50%) rotate(270deg);
+            transform-origin: bottom;
+        }
+                .violetSegment{
+            background-color:violet;
+            transform: translate(-50%) rotate(314deg);
+            transform-origin: bottom;
+        }
+            .prize{
+                position: relative;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 40%;
+                padding-top: 40%;
+                top: 10%;
+               
+            }
+            .blueCircle{border-radius:100%;
+            background-color:blue;}
+            .orangeTriangle{
+                clip-path:polygon(0% 0%, 100% 0%, 50% 100%);
+                background-color: orange;
+            }
+            .whitePentagon{
+                background-color: white;
+                clip-path:polygon(15% 0%, 85% 0%, 100% 65%, 50% 100%, 0% 65%)
+            }
+            .yellowCross{
+                background-color: yellow;
+                clip-path:polygon(45% 0%, 55% 0%, 55% 45%, 100% 45%, 100% 55%, 55% 55%, 55% 100%, 45% 100%, 45% 55%, 0% 55%, 0% 45%, 45% 45%);
+            }
+            .violetSquare{
+                background-color:violet;
+            }
+            .redDiamond{
+                background-color:red;
+                clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+
+            }
+            .blackOctagon{
+                background-color:black;
+                clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            }
+            .greenStar{
+                background-color:green;
+                clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            }
+    </style>
+    <script>
+    var finalSpin = 0;
+    var spinWin = ['pink', 'yellow', 'black', 'orange', 'blue', 'green', 'white', 'red']
+        function spinTheSpinner(){
+            console.log('CLICK');
+            let spinDeg = Math.floor(Math.random() * 1440) + 720 + finalSpin;
+            console.log(spinDeg);
+            let spinner = document.getElementById('spinner');
+            spinner.style.transition = 'transform 10s ease-out 0.2s';
+            spinner.style.transform = 'rotate('+spinDeg+'deg)';
+            spinner.ontransitionend= () => {
+                finalSpin = spinDeg % 360;
+                let winner = Math.floor((finalSpin-22.5)/45);
+                alert('You landed on ' + spinWin[winner] +'!');
+                spinner.style.transition='';
+                spinner.style.transform='rotate('+finalSpin+'deg)'       ;     }
+
+        }
+    </script>
+</head>
+<body>
+    <div class="wheelContainer" id="spinner">
+        <div class ="redSegment eighth">
+            <div class = "blueCircle prize"></div>
+        </div>
+        <div class="whiteSegment eighth">
+            <div class = "orangeTriangle prize"></div>
+
+        </div>
+        <div class ="greenSegment eighth">
+            <div class ="whitePentagon prize"></div>
+        </div>
+        <div class="blueSegment eighth">
+            <div class = "yellowCross prize"></div>
+        </div>
+        <div class="orangeSegment eighth">
+            <div class = "violetSquare prize"></div>
+        </div>
+        <div class="blackSegment eighth">
+            <div class="redDiamond prize"></div>
+        </div>
+        <div class="yellowSegment eighth">
+            <div class = "blackOctagon prize"></div>
+        </div>
+        <div class="violetSegment eighth">
+            <div class = "greenStar prize"></div>
+        </div>
+    </div>
+    <button onclick="spinTheSpinner()">SPIN!</button>
+    </body>
+</html>

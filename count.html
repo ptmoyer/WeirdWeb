@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html><head>
+
+<style>
+body{
+background-color: #2F6DA6; }
+
+.circle{width: 50px; height: 50px; border-radius: 25px; margin: auto; background-color: red; filter: alpha(opacity=0); opacity: 0; }
+#correct{padding: 10px;}
+#howMany, #afterSubmit{display: none; color: white; font-family: sans-serif; font-weight: bolder; font-size: 16pt;}
+#afterSubmit{display: none; padding-top: 10px;}
+
+.centerAll{min-width: 40%; min-height: 20%; max-width: 90%; max-height: 80%; position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0; margin: auto; margin-left: auto; margin-right: auto; color: white; background-color: #663399; font-size: 36px; text-align: center; font-weight: bolder; font-family: sans-serif; border-radius: 20px;}
+a {cursor: pointer; background-color: #2F6DA6; color: white; border: none; padding: 15px; font-size: 24px; font-weight: bold; border-radius: 10px;}
+
+.Absolute-Center {
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+input#begin{width: 75%; height: 50%; font-weight: bolder; font-size: 24px; position: absolute; margin: auto; top: 0; bottom: 0; left: 0; right: 0}
+
+#answer{font-size: 24pt;   margin: auto;
+  padding: 10px;}
+.centerTable{width: 100%; height: 100%; margin: auto;}
+tr{line-height: 25%}
+
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"> <!--320-->
+<script>
+var answer = "Wrong!";
+var totalCircles = 1;
+function circleAppear() {
+	document.getElementById("afterSubmit").style.display = 'none';
+	document.getElementById("begin").style.display = 'none';
+	var doneAlready = [];
+	totalCircles = Math.floor((Math.random() * 15) + 1);
+	console.log("circles = " + totalCircles);	
+	var circlenum = 20;
+	var divID = "";
+	var i = 0;
+	var j = 0;
+	var alreadyCheck = false;
+	while (i < totalCircles) {
+		if (Math.random() < 0.5) {
+			console.log("We chose " + j);
+			for(q = 0; q < doneAlready.length; q++){
+				if (doneAlready[q] == j){
+				alreadyCheck = true
+				console.log("but it's been done already");
+				}
+				
+			}
+			if (alreadyCheck == false){
+				divID = "circle" + j;
+				doneAlready.push(j);
+				console.log("and made " + divID + " appear!");
+				appear(divID);
+				i++
+			}
+			alreadyCheck = false;
+				
+		}
+	if (j < 19){
+		j++
+		} 
+		else {j = 0}
+	console.log("j = " + j);
+	}
+	
+	
+
+}
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if (charCode == 13) {checkNumber(parseInt(document.getElementById('inputNumber').value))}
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+
+	return true;
+	
+}
+function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            document.getElementById(element).style.visibility = 'hidden'; 
+			document.getElementById("howMany").style.display = 'inline';
+			document.getElementById("inputNumber").focus();
+        }
+        document.getElementById(element).style.opacity = op;
+        document.getElementById(element).style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.5;
+    }, 50);
+}
+function appear(element) {
+	console.log("appear begin");
+	document.getElementById(element).style.visibility = 'visible';
+    var op = 0.1;  // initial opacity
+	document.getElementById(element).style.filter = 'alpha(opacity=' + op * 100 + ")";
+	 
+    var timer = setInterval(function () {
+		if (op >= 1){
+			console.log("appear" + element + "end");
+            clearInterval(timer);
+			fade(element);
+
+        }
+        document.getElementById(element).style.opacity = op;
+        document.getElementById(element).style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op += op * 3;
+    }, 50);
+}
+
+function checkNumber(numberIn){
+
+if (numberIn == totalCircles) {
+	answer = "Correct!";
+}
+else {
+	answer = "Wrong!";
+	}
+document.getElementById("inputNumber").value = "";
+document.getElementById("correct").innerHTML = answer;
+document.getElementById("answer").innerHTML = totalCircles;
+document.getElementById("afterSubmit").style.display = 'inline';
+document.getElementById("howMany").style.display = 'none';
+document.getElementById("again").focus();
+
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="centerAll">
+<div clas="Absolute-Center">
+<div id="begin" style="display: none;">
+<input type="button" id="begin" value="Start Counting Dots!" onclick="circleAppear()">
+</div>
+</div>
+<div id="afterSubmit" style="display: none;">
+	<div id="correct">Wrong!</div>
+	<div id="theAnswerWas">The answer was:</div>
+	<div class="answerDiv"><div id="answer">8</div></div>
+	<input type="button" id="again" value="Again!" onclick="circleAppear();">
+
+</div>
+
+<div id="howMany" style="display: inline;">
+How many was that?<br>
+
+
+<input type="tel" class="textfield" id="inputNumber" name="extra7" onkeypress="javascript:return isNumber(event);">
+<input type="button" id="submit" value="Submit!" onfocus="checkNumber(parseInt(document.getElementById('inputNumber').value));" onclick="checkNumber(parseInt(document.getElementById('inputNumber').value))">
+
+</div>
+
+<div id="circles">
+<table class="centerTable" align="center">
+<tbody><tr><td><div class="circle" id="circle0" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle1"></div></td><td><div class="circle" id="circle2" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle19" style="visibility: hidden; opacity: 0.0625;"></div></td></tr>
+<tr><td><div class="circle" id="circle3" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle4" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle5" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle18" style="visibility: hidden; opacity: 0.0625;"></div></td></tr>
+<tr><td><div class="circle" id="circle6" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle7" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle8" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle17"></div></td></tr>
+<tr><td><div class="circle" id="circle9" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle10" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle11" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle16" style="visibility: hidden; opacity: 0.0625;"></div></td></tr>
+<tr><td><div class="circle" id="circle12" style="visibility: hidden; opacity: 0.0625;"></div></td><td><div class="circle" id="circle13"></div></td><td><div class="circle" id="circle14"></div></td><td><div class="circle" id="circle15"></div></td></tr>
+</tbody></table>
+</div>
+</div>
+
+
+
+
+
+</body><!--
+     FILE ARCHIVED ON 15:35:02 Apr 16, 2016 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:03:42 Feb 24, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+--><!--
+playback timings (ms):
+  captures_list: 0.515
+  exclusion.robots: 0.019
+  exclusion.robots.policy: 0.008
+  esindex: 0.011
+  cdx.remote: 59.035
+  LoadShardBlock: 105.396 (3)
+  PetaboxLoader3.datanode: 381.913 (5)
+  load_resource: 1341.175 (2)
+  PetaboxLoader3.resolve: 1008.388 (2)
+--></html>

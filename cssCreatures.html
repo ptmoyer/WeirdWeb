@@ -1,0 +1,765 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+    @keyframes shifty{
+        0%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-50%, 0) rotateZ(0deg) scale(1)
+        }
+        10%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-50%, 0) rotateZ(0deg) scale(0.96)
+        }
+        15%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-48%, 0) rotateZ(1deg) scale(0.96)
+        }
+        45%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-52%, 0) rotateZ(-1deg) scale(0.96) 
+        }
+        50%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-50%, 0) rotateZ(0deg) scale(1)
+        }
+        60%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-50%, 0) rotateZ(0deg) scale(1)            
+        }
+        70%{
+            transform-origin:top center;
+            transform:perspective(300px) translate(-50%, -5px) rotateZ(0deg) scale(1)            
+        }
+        80%{
+            transform:perspective(300px) translate(-50%, -5px) rotateZ(0deg) scale(1)   
+        }
+        
+        100%{
+                        transform-origin:top center;
+            transform:perspective(300px) translate(-50%, 0) rotateZ(0deg) scale(1)
+        }
+    }
+    @keyframes headlook{
+        0%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            
+        }
+        10%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(10deg) rotateY(-10deg) rotateZ(15deg);
+        }
+        15%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(12deg) rotateY(-10deg) rotateZ(15deg);
+        }
+        25%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(12deg) rotateY(10deg) rotateZ(-15deg);
+        }
+        35%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(12deg) rotateY(10deg) rotateZ(-15deg);
+        }
+        40%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(12deg) rotateY(-10deg) rotateZ(-15deg); 
+        }
+        45%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(12deg) rotateY(10deg) rotateZ(-15deg); 
+        }
+        50%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        }
+        55%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
+        }
+        65%{
+            transform-origin:bottom center;
+            transform: perspective(500px) rotateX(-40deg) rotateY(0deg) rotateZ(0deg); 
+        }
+        70%{
+            transform-origin:bottom center;
+            transform: perspective(500px) rotateX(-40deg) rotateY(0deg) rotateZ(0deg);  
+        }
+        75%{
+            transform-origin:bottom center;
+            transform: perspective(500px) rotateX(-40deg) rotateY(-30deg) rotateZ(0deg); 
+        }
+        85%{
+            transform-origin:bottom center;
+            transform: perspective(500px) rotateX(-40deg) rotateY(30deg) rotateZ(0deg);  
+        }
+        100%{
+            transform-origin:bottom center;
+            transform: perspective(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        }
+
+    }
+        .exampleContainer{
+            background-color:beige;
+            position:relative;
+            width:300px;
+            height:400px;
+            overflow:hidden;
+            padding:10px;
+            border:2px solid gray;
+            flex-grow:1;
+        }
+        .creature{
+            position:absolute;
+            top:15px;
+            left:50%;
+            transform:translate(-50%);
+        }
+        .cat{
+            
+        }
+        .man{
+            
+        }
+        .body{
+            width: 250px;
+            height: 500px;
+            position: absolute;
+            border-radius: 100%;
+            left: 50%;
+            z-index: -1;
+            transform-origin:top center;
+            transform:perspective(300px) translate(-50%, 0) rotateZ(0deg) scale(1);
+            animation:shifty 5s linear 0s infinite;
+        }
+        .creatures{
+            flex-flow: wrap;
+            justify-content:space-around;
+            display:flex;
+        }
+        .peach .face{
+           background-color: #ffe39f
+        }
+        .peach .body{
+            background-color: #383838	
+        }
+        .black .body, .black .face{
+            background-color: black;
+        }
+        .white .body, .white .face{
+            background-color: white;
+        }
+        .white .leftEar, .white .rightEar{
+            border-bottom-color: white !important;
+        }
+        .orange .body, .orange .face{
+            background-color: orange;
+            
+        }
+        .orange .leftEar, .orange .rightEar{
+            border-bottom-color: orange !important;
+        } 
+        .red .body, .red .face{
+            background-color:red;
+        }
+        .red .leftEar, .red .rightEar{
+            border-bottom-color: red !important;
+        } 
+        .gray .body, .gray .face{
+            background-color:gray;
+        }
+        .gray .leftEar, .gray .rightEar{
+            border-bottom-color: gray !important;
+        } 
+        .brown .body, .brown .face{
+            background-color:#9c4800;
+        }
+        .brown .leftEar, .brown .rightEar{
+            border-bottom-color: #9c4800 !important;
+        }
+        .black .mouth, .cat .bodyDecoration1, .black .leftEye, .black .rightEye{
+            background-color:white;
+        }
+        .cat .body{
+        top:100px;
+        }
+        .man .body{
+        top:150px;
+        }
+        .orange .mouth, .red .mouth, .brown .mouth, .gray .mouth, .brown .mouth, .orange .leftEye, .red .leftEye, .brown .leftEye, .gray .leftEye, .brown .leftEye, .orange .rightEye, .red .rightEye, .brown .rightEye, .gray .rightEye, .brown .rightEye{
+            background-color:white;
+        }
+        .white .mouth, .white .leftEye, .white .rightEye, .white .faceDecoration1, .peach .mouth, .peach .leftEye, .peach .rightEye, .peach .faceDecoration1{
+            background-color:black !important;
+        }
+        
+        .cat .bodyDecoration1{
+            width: 140px;
+            height:250px;
+            border-radius:100%;
+            position:absolute;
+            left:50%;
+            transform:translate(-50%);
+            top:100px;
+        }
+
+        .face{
+             animation: headlook 5s linear 0s infinite;
+        }
+        .cat .leftEye{
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            top: 45px;
+            left: 45px;
+            position: absolute;
+        }
+         .man .leftEye{
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            top: 75px;
+            left: 45px;
+            position: absolute;
+        }
+         .man .rightEye{
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            top: 75px;
+            right: 45px;
+            position: absolute;
+        }
+        .man .mouth{
+            width:40px;
+            height:5px;
+            position:absolute;
+            bottom:50px;
+            left:50%;
+            transform:translate(-50%);
+        }
+        .man .nose{
+            width: 25px;
+            height: 15px;
+            border-bottom: 5px solid black;
+            position: absolute;
+            border-right: 5px solid black;
+            border-left: 5px solid black;
+            bottom: 70px;
+            left: 50%;
+            transform: translate(-50%);
+            border-radius: 0px 0px 20px 20px;
+        }
+         .cat .rightEye{
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            top: 45px;
+            right: 45px;
+            position: absolute;
+        }
+        .cat .nose{
+            width: 0px;
+            height: 0px;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #f7a3a3;
+            position:absolute;
+            bottom:60px;
+            left:50%;
+            transform:translate(-50%);
+        }
+        .cat .face{
+            border-radius:100%;
+            width:200px;
+            height:170px;
+        }
+        .man .face{
+            border-radius: 150px 150px 100% 100%;
+            overflow: hidden;
+            height:200px;
+            width:180px;
+        }
+        .cat .mouth{
+            width:60px;
+            height:5px;
+            position:absolute;
+            bottom:35px;
+            left:50%;
+            transform:translate(-50%);
+        }
+
+        .cat .leftEar {
+            width: 0px;
+            height: 0px;
+            border-left: 20px solid transparent;
+            border-right: 87px solid transparent;
+            border-bottom: 93px solid black;
+            position: absolute;
+            top: -24px;
+            left: -14px;
+            transform: rotate(344deg);
+        }
+            .cat .rightEar {
+            width: 0px;
+            height: 0px;
+            border-right: 20px solid transparent;
+            border-left: 87px solid transparent;
+            border-bottom: 93px solid black;
+            position: absolute;
+            top: -24px;
+            right: -14px;
+            transform: rotate(16deg);
+        }
+        
+        .man .faceDecoration1{
+            
+        }
+        
+        .cat .faceDecoration1 {
+            width: 126px;
+            height: 32px;
+            background-color: white;
+            position: absolute;
+            bottom: 57px;
+            left: 37px;
+            clip-path: polygon(
+            5%   0%,  0%  15%,  30%  25%,               /* First Polygon */
+            30% 43%,   0% 43%,   0% 58%, 30% 58%, /* Second Polygon */
+            30% 75%,   0% 85%,   5% 100%, 30% 90%, /* Third Polygon */
+            
+            70% 90%, 95% 100%, 100% 85%, 70% 75%, /* Fourth Polygon */
+            70% 58%, 100% 58%, 100% 43%, 70% 43%, /* Fifth Polygon */
+            70%  25%, 100%  15%, 95%  0%, 70%  10%,     /* Sixth Polygon */
+            
+            70%  10%,             /* Sixth Polygon Endpoint */
+            70% 43%, 70% 58%,   /* Fifth Polygon Endpoint */
+            70% 70%, 70% 90%,   /* Fourth Polygon Endpoint */ 
+            
+            30% 90%, 30% 75%,   /* Third Polygon Endpoint */
+            30% 58%, 30% 43%,   /* Second Polygon Endpoint */
+            30% 30%,             /* First Polygon Endpoints */
+            30% 10%               /* First Polygon Beginning*/
+            );
+                }
+    </style>
+    
+</head>
+
+<body>
+    <div class="creatures">
+        <div class="exampleContainer">
+            <div class="creature cat black">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>   
+                <div class="exampleContainer">
+            <div class="creature cat white">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat orange">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat red">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat gray">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat black">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat brown">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat black">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature cat black">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+                <div class="exampleContainer">
+            <div class="creature man peach">
+                <div class="body">
+                    <div class="bodyDecoration1">
+                
+                
+                    </div>
+                    <div class="bodyDecoration2">
+                        
+                    </div>        
+                </div>
+                <div class="face">
+                    <div class="leftEar">
+                
+                    </div>    
+                    <div class="rightEar">
+            
+                    </div>
+                    <div class="leftEye">
+                        
+                    </div>
+                    <div class="rightEye">
+                        
+                    </div>
+                    <div class="nose">
+                        
+                    </div>
+                    <div class="faceDecoration1">
+                
+                
+                    </div>
+                    <div class="faceDecoration2">
+                    </div>
+                    <div class="mouth">
+                        
+                    </div>
+                </div>    
+        
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

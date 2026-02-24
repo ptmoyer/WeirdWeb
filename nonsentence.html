@@ -1,0 +1,325 @@
+<HEAD>
+    <html lang="en">
+<head>
+  <meta charset="utf-8">
+<style>
+    @keyframes talking {
+        0% {height: 7px;
+            width: 35px;
+
+            }
+        33% {height: 15px;
+            width: 35px;
+
+            }
+        66% {
+            height: 7px;
+            width: 35px;
+
+        }
+        100% {height: 15px;
+            width: 15px;
+
+        }
+    }
+  
+    .speakerContainer
+    {   padding:10px;
+        height:400px;
+        position:relative;
+        min-width: 45%;
+        max-width:750px;
+        left:50%;
+        transform:translate(-50%, 0%);
+        background-color:#87d1ff;
+        border:5px solid black;
+        border-radius:5px;
+    }
+    .face{
+        position:absolute;
+        right:30px;
+        bottom:30px;
+        
+    }
+    .eye{overflow:hidden;
+        position:absolute;
+    }
+    .eyeLeft {
+    left: 30%;
+    top:45%
+    }
+    .eyeRight{
+    left:70%;
+    top:45%;
+    }
+    .talking{
+        animation: talking 0.2s linear 0s infinite alternate
+    }
+    .small{
+        height:30px;
+        width:30px;
+        
+    }
+    .white{
+        background-color:white;
+        
+    }
+    .centerPoint{
+        transform:translate(-50%)    ;
+    }
+    .oblong{
+        border-radius:100% 0% 100% 0%;
+        transform:rotate(45deg) translate(-66%);
+    }
+    .highOval{
+        height:12em;
+        width:10em;
+    }
+    .pupil {
+        position:absolute;
+        transform:translate(-25%, 25%)
+    }
+    .thirdL{
+        left:33%;
+    }
+    .thirdT{
+        top:33%;
+    }
+    .halfT{
+        top:50%;
+    }
+    .halfL {
+        left:50%;
+    }
+    .twoThirdL{
+        left:66%;   
+    }
+    #replacetext {
+        width: 92%;
+        padding: 10px;
+        font-size: 3em;
+        position:absolute;
+        border:5px solid black;
+        border-radius: 20px;
+        background-color:white;
+    }
+    #newSentence {
+        width:8em;
+        height:3em;
+        font-size:2em;
+        bottom:30px;
+        left:30px;
+        position:absolute;
+    }
+    .innerHair
+    {
+    width: 139%;
+    transform: translate(-27%, -12%);
+    background-color: #ca9048;
+    height: 40%;
+    border-radius: 100%;
+    }
+    .innerHair2
+    {
+    width: 49%;
+    transform: translate(146%, -109%);
+    background-color: #ca9048;
+    height: 40%;
+    border-radius: 100%;
+    }
+      .outerHair
+    {
+    background-color: #ca9048;
+    height: 74px;
+    transform: translate(-58%, -23%);
+    width: 101%;
+    left: 50%;
+    position: absolute;
+    border-radius: 100% 100% 2px 72px;
+    z-index: 0;
+    }
+    .outerHair2
+    {    
+    width: 26%;
+    transform: translate(294%, 35%);
+    background-color: #ca9048;
+    height: 25%;
+    border-radius: 100% 100% 59% 100%;
+    position: absolute;
+    }
+    
+    .mouth{
+        position:absolute;
+        top:71%;
+    }
+    .circle{
+        border-radius: 100%;
+    }
+    
+    .faceShape {
+        border-radius:150px 150px 100% 100%;
+        overflow:hidden;
+    }
+    .midSize{
+        width: 200px;
+        height: 200px;
+    }
+    .tiny {
+            width: 0.5em;
+            height:0.5em;
+    }
+    .twoThirdT{
+        top:66%;
+    }
+    .smallLine{
+        height:0.5em;
+        width:2.5em;
+    }
+    .peach {
+       background-color: #ffe39f
+    }
+    .blueBorder {
+        border: 6px solid blue;
+    }
+    .black  {
+        background-color: black;
+    }
+</style>
+  <title>Nonsentences</title>
+  <meta name="description" content="Colorless Green Ideas Sleep Furiously, and other grammatical nonsense">
+  <meta name="author" content="SitePoint">
+<script src="/assets/js/wordlist.js"></script>
+<script>
+    var talkElement;
+    var timeoutArray = [];
+    window.onload = function() {
+        showNewSentence();
+    };
+
+    function showNewSentence()
+    {   
+        talkElement = document.getElementById("mouth1");
+        talkElement.classList.add("talking");
+        timeoutArray.forEach(stopTimer);
+        timeoutArray = [];
+        var tweetLinkStart = "https://twitter.com/intent/tweet?hashtags=nonSentence&original_referer=https%3A%2F%2Fphillipmoyer.com%2F&ref_src=twsrc%5Etfw&related=phillipmoyer&text=";
+        var tweetLinkEnd = "&tw_p=tweetbutton&url=https%3A%2F%2Fphillipmoyer.com%2Fnonsentence.html"
+        var tweetButton = document.getElementById('customTweet');
+        var showArea = document.getElementById('replaceText');
+        var finishedSentence = makeASentence();
+        showArea.innerHTML = "";
+        tweetButton.setAttribute("href", tweetLinkStart + finishedSentence + tweetLinkEnd);
+        displaySentence(showArea, finishedSentence);
+        
+    };
+    function stopTimer(item, index)
+    {
+        clearTimeout(item);
+    }
+    function displaySentence(targetDiv, textGet)
+    {
+        var charArray = [];
+        var pauseTotal = 0;
+            for (i = 0; i < textGet.length; i++)
+            {
+                delayShow(textGet.charAt(i), targetDiv, pauseTotal);
+                if (textGet.charAt(i+1)==" "){
+                    pauseTotal += 5;
+                }
+                else
+                {
+                    pauseTotal += (Math.floor(Math.random()*35) + 20);
+                }
+            }
+        stopTalking(pauseTotal); //sends total timer. Stops the talkElement from talking.
+        
+    }
+    
+    function stopTalking(talkTimer)
+    {
+        setTimeout(function(){talkElement.classList.remove("talking")},talkTimer);
+    }
+    
+    function delayShow(theChar, theDiv, theTime)
+        {
+            timeoutArray.push(setTimeout(function(){theDiv.insertAdjacentText("beforeend", theChar)}, theTime)); 
+            //added to an array so that the "stopTimer" function can stop every timer.
+            //not sure why "afterend makes this go backwards -- look into exact function of insertAdjacentText"
+            //if ends up breaking later switch to either node.appendChild or theDiv.innerHTML+=
+            
+            
+            
+        }
+    
+    function makeASentence()
+    {
+        
+        var stringToShow = randomSentenceType();
+        return stringToShow;
+    };
+    
+    
+    function randomSentenceType()
+        {
+          var stringToShow = classicSentence();
+           return stringToShow;
+        }
+    
+    function classicSentence()
+        {
+        var adj1 = arrayChooser(adjective);
+        firstAdj = wordCap(adj1);
+        var adj2 = arrayChooser(adjective);
+        var adverbToShow = arrayChooser(adverb);
+        var verbToShow = arrayChooser(pluralVerb);
+        var nounToShow = arrayChooser(pluralNoun);
+        var stringToShow = firstAdj + " " + adj2 + " " + nounToShow + " " + verbToShow + " " + adverbToShow + ".";
+        return stringToShow;
+        }
+    
+    function arrayChooser(wordType)     
+    {
+        console.log('start')
+        var wordNum = Math.floor(Math.random()*wordType.length)
+        var wordChosen = wordType[wordNum];
+        console.log('chose ' + wordChosen)
+        return wordChosen;
+    };
+    function wordCap (wordToCapitalize)
+    {
+        return wordToCapitalize.charAt(0).toUpperCase() + wordToCapitalize.slice(1);
+    };
+    
+</script>
+</head>
+<body>
+    <div class="speakerContainer">
+    <div id="replaceText">Colorless green ideas sleep furiously</div>
+    <div class="face">
+        <div class="outerHair"></div>
+        <div class="outerHair2"></div>
+        <div class="faceShape highOval peach">
+            <div class="innerHair"></div>
+            <div class="innerHair2"></div>
+            <div class="eye oblong small white eyeRight">
+                <div class = "pupil circle tiny blueBorder black thirdL">
+            
+                </div>
+            </div>
+            <div class="eye oblong small white eyeLeft">
+                <div class = "pupil circle tiny blueBorder black thirdL">
+            
+                </div>
+            </div>
+        
+            <div id="mouth1" class = "mouth halfL smallLine black centerPoint">
+            
+            </div>
+        </div>
+    </div>
+    <button id="newSentence" onclick="showNewSentence()">Another!</button>
+    <a href="https://twitter.com/intent/tweet?hashtags=nonSentence&original_referer=https%3A%2F%2Fphillipmoyer.com%2F&ref_src=twsrc%5Etfw&related=phillipmoyer&text=This%20is%20terrible&tw_p=tweetbutton&url=https%3A%2F%2Fphillipmoyer.com%2Fnonsentence.html" target="_blank" id="customTweet">Tweet this nonsentence!</a>
+
+    </div>
+
+</body>
